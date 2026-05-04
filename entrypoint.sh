@@ -10,7 +10,6 @@ if [ ! -f "package.json" ]; then
   echo ">>> Next.js プロジェクトが見つかりません。初期化を開始します..."
   echo ""
 
-  # 固定パスの一時ディレクトリで初期化（大文字回避）
   rm -rf /tmp/nextjs-init
   create-next-app /tmp/nextjs-init \
     --typescript \
@@ -30,7 +29,8 @@ if [ ! -f "package.json" ]; then
 else
   echo ""
   echo ">>> 既存の Next.js プロジェクトを検出しました。"
-  if [ ! -d "node_modules" ]; then
+  # node_modules ではなく next の実行ファイルで判定（Volume が空の場合も対応）
+  if [ ! -f "node_modules/.bin/next" ]; then
     echo ">>> 依存関係をインストール中..."
     npm install
   fi
