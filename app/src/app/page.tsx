@@ -44,8 +44,11 @@ export default function ExtractionPage() {
   ];
 
   const copyItemTsv = (item: ParsedRow, index: number) => {
-    const rows = getItemRows(item);
-    const tsv = rows.map((r) => r.value).join("\n");
+    const tsv = [
+      item.rakuten[0]?.url ?? "",
+      item.rakuten[1]?.url ?? "",
+      item.rakuten[2]?.url ?? "",
+    ].join("\n");
 
     navigator.clipboard.writeText(tsv);
     setCopiedIndex(index);
@@ -161,7 +164,7 @@ export default function ExtractionPage() {
                 ) : (
                   <>
                     <span>📋</span>
-                    <span>テーブルをコピー (TSV)</span>
+                    <span>楽天リンクをコピー (TSV)</span>
                   </>
                 )}
               </button>
